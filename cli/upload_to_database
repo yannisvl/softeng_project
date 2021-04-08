@@ -1,0 +1,17 @@
+LOAD DATA LOCAL INFILE '/home/giann_vlax/eurogroup_cli/ActualTotalLoad-10days.csv' INTO TABLE ActualTotalLoad
+FIELDS TERMINATED BY ';' 
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(Id, EntityCreatedAt, EntityModifiedAt, ActionTaskID, Status, Year, Month, Day, DateTime, AreaName, UpdateTime, TotalLoadValue, AreaTypeCodeId, AreaCodeId, ResolutionCodeId, MapCodeId, RowHash);
+
+LOAD DATA LOCAL INFILE '/home/giann_vlax/eurogroup_cli/DayAheadTotalLoadForecast-10days.csv' INTO TABLE DayAheadTotalLoadForecast
+FIELDS TERMINATED BY ';' 
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(Id, EntityCreatedAt, EntityModifiedAt, ActionTaskID, Status, Year, Month, Day, DateTime, AreaName, UpdateTime, TotalLoadValue, AreaTypeCodeId, AreaCodeId, ResolutionCodeId, MapCodeId, RowHash);
+
+LOAD DATA LOCAL INFILE '/home/giann_vlax/eurogroup_cli/AggregatedGenerationPerType-10days.csv' INTO TABLE AggregatedGenerationPerType
+FIELDS TERMINATED BY ';' 
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(Id, EntityCreatedAt, EntityModifiedAt, ActionTaskID, Status, Year, Month, Day, DateTime, AreaName, UpdateTime, ActualGenerationOutput, ActualConsuption, AreaTypeCodeId, AreaCodeId, ResolutionCodeId, MapCodeId, ProductionTypeId, RowHash);

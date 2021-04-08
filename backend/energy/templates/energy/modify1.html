@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>User information:</h2>
+  {% if uname %}
+      <p><strong>Username: </strong></p>{{ uname.username }}
+      <p><strong>First name: </strong></p>{{ uname.first_name }}
+      <p><strong>Last name: </strong></p>{{ uname.last_name }}
+      <p><strong>Email: </strong></p>{{ uname.email}}
+      <p><strong>Administrator status: </strong></p>
+      {% if uname.is_superuser %}
+          Is administrator
+      {% else %}
+          None
+      {% endif %}
+  {% endif %}
+{% endblock %}

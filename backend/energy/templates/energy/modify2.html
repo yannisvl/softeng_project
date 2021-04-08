@@ -1,0 +1,10 @@
+{% block content %}
+  <h2>User data:</h2>
+  <form method="post">
+    Current password of user is {{ user.password }}.
+    <label for="uname">Username:</label>
+    <input type="text" id="uname" name="uname"><br>
+    <input type="submit" value="Submit">
+  </form>
+    
+{% endblock %}

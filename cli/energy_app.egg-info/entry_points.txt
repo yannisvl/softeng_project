@@ -1,0 +1,4 @@
+
+            [console_scripts]
+            energy_group044=energy_group044:cli
+        
