@@ -1,50 +1,53 @@
-# Softeng_Project
+# EUROgroup Energy App
 
-EUROgroup Energy App: Application created on Django Framework in the context of the Software Engineering course in the Electrical Engineering and Computer Science Department in NTUA.
+A Django backend and Click command-line client for querying electrical-energy data, developed for the NTUA Software Engineering course.
 
-The user has the possibility to perform the following actions:
-- To find data about the total electrical energy load, for a specific region and energy type, for a specific time period (day, month, year).
-- To find data about the total electrical energy consumption, for a specific region, energy type and time analysis, for a specific time period (day, month, year).
-- To find data about the predictions of the total electrical energy load, for a specific region and energy type, for a specific time period (day, month, year).
+## Supported workflows
 
-The data above can be both read in a JSON and a CSV form.
+- Actual total load by area and time resolution.
+- Aggregated generation by production type.
+- Day-ahead load forecasts.
+- Actual-versus-forecast comparisons.
+- JSON and CSV responses, with date/month/year query options.
 
-## Tools:
-
-The application supports a RESTful Application Programming Interface (REST API). It was implemented using the tools below:
-
-1.  **DJANGO Framework**, RESTful API tool in Python. Our database was implemented in Sql and contains a table for each of the above functions. The Sql database has to be connected with the api before the application is used.
-
-2.  **Click CLI**, Command Line Interface, through which queris can be performed.
-
-3.  **cURL**, Connection tool between the Command Line Interface and the application server (localhost:8765).
-
-## Execution:
-
-Server activation:
-
-```
-python3 manage.py runserver 8765
+```mermaid
+flowchart LR
+    A[Click CLI or HTTP client] --> B[Django API]
+    B --> C[Energy models and database]
+    C --> D[JSON or CSV results]
+    D --> A
 ```
 
-Three types of queries:
+## Repository guide
 
-**Total load**:
-```
-energy_group044 actualtotalload --area <DesiredArea> --timeres <DesiredResolution> [--date <YYYY-MM-DD> | --month <YYYY-MM> | --year <YYYY>] [ | --format csv | --format json]
+| Directory | Contents |
+| --- | --- |
+| `backend/eurogroup/` | Django configuration and routing |
+| `backend/energy/` | Models, views, forms and management commands |
+| `backend/energy/migrations/` | Recorded database migrations |
+| `cli/` | Click client and package setup |
+
+## Local setup status
+
+This is a legacy coursework snapshot. There is no complete pinned backend environment or bundled energy dataset. Reconstruct compatible dependencies and database configuration before running it. Configure fresh local credentials before running it. Previously committed credentials require revocation or replacement wherever they were used; removing a file from the current tree does not remove it from Git history.
+
+Once the backend environment and database are prepared:
+
+```bash
+cd backend
+python manage.py runserver 8765
 ```
 
-**Total consumption**:
-```
-energy_group044 aggregatedgenerationpertype --area <DesiredArea> --timeres <DesiredResolution> [ | --productiontype <DesiredProductionType>] [--date <YYYY-MM-DD> | --month <YYYY-MM> | --year <YYYY>] [ | --format csv | --format json]
+Install the CLI from its directory in a suitable Python environment:
+
+```bash
+cd cli
+python -m pip install -e .
+energy_group044 --help
 ```
 
-**Load prediction**:
-```
-energy_group044 dayaheadtotalloadforecast --area <DesiredArea> --timeres <DesiredResolution> [--date <YYYY-MM-DD> | --month <YYYY-MM> | --year <YYYY>] [ | --format csv | --format json]
-```
+Both `cd` commands above are relative to the repository root. The CLI setup declares Click; inspect its imports for additional runtime dependencies. The [original command reference](CLI_GUIDE.md) preserves query examples and course context.
 
-**Load and prediction comparison**:
-```
-energy_group044 actualvsforecast --area <DesiredArea> --timeres <DesiredResolution> [--date <YYYY-MM-DD> | --month <YYYY-MM> | --year <YYYY>] [ | --format csv | --format json]
-```
+## Validation and limitations
+
+Unit and functional test files are present in both components. Their database, user and server prerequisites must be configured before execution. Authentication, compatibility and a clean-database reproduction have not been newly verified. This repository is useful for reviewing API/CLI structure, not as a ready-to-deploy energy service.
